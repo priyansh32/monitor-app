@@ -16,9 +16,10 @@ async function sendData(e) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            desc: form.children[1].value,
-            date: form.children[2].value,
-            category: form.children[3].value
+            topic: String,
+            link: form.children[1].value,
+            date: new Date(),
+            difficulty: form.children[3].value
         })
     })
     response = await response.json()
@@ -95,29 +96,6 @@ async function getToDo() {
 }
 getToDo()
 
-//function to delete a task
-async function delTodo(e) {
-    e.parentElement.parentElement.remove()
-    let response = await fetch(`/data/delete/${e.dataset.id}`, {
-        method: 'DELETE'
-    })
-    response = await response.json()
-    console.log('Task Deleted:', response)
-}
-
-//function to mark a task as complete
-async function markComplete(e) {
-    e.setAttribute('style', 'background-color: grey; color: black; border: none; opacity: 0.7;')
-    e.setAttribute('disabled', 'true')
-    e.innerHTML = `<img
-    src="/Public/images/check.svg" alt="tick">Completed`
-    let response = await fetch(`/data/done/${e.dataset.id}`, {
-        method: 'PUT'
-    })
-    response = await response.json()
-    console.log(response)
-}
-
 //function to decide the background color to category div
 function decideColor(category) {
     switch (category) {
@@ -133,15 +111,3 @@ function decideColor(category) {
             return 'Black';
     }
 }
-
-//function to get quote using STANDS4quotes api
-//comment this if you don't have a api token
-async function getQuote() {
-    let response = await fetch('/data/getQuote')
-    response = await response.json()
-    response = response.result
-    quoteContainer.children[0].innerHTML = response.quote
-    quoteContainer.children[1].innerHTML = `~ ${response.author}`
-    quoteContainer.classList.remove('before')
-}
-getQuote()

@@ -5,16 +5,18 @@ const router = express.Router();
 const fetch = require('node-fetch');
 
 router.post('/create', async (req, res) => {
+    let topics = req.body.topics;
+    topics = topics.split(/[ ]*,+[ ]*/);
+    User.find({email: req.user.email})
     let todo = new ToDo({
-        title: req.body.title,
-        category: req.body.category,
+        link: req.body.link,
+        difficulty: req.body.difficulty,
         date: req.body.date,
-        desc: req.body.desc,
-        done: false,
+        topics: topics,
         user: req.user._id
     })
     try {
-        await todo.save()
+        await todo.save();
         return res.status(200).send(todo);
     }
     catch (err) {

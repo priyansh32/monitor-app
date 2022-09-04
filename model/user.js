@@ -8,7 +8,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-    }
+    },
+    dsa: [{
+        platform: String,
+        difficulty: String,
+        link: String,
+        date: Date,
+    }]
 }, {
     timestamps: true
 });
