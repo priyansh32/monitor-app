@@ -1,59 +1,47 @@
-const express = require('express');
-const ToDo = require('../model/todo')
-const User = require('../model/user')
+const express = require("express");
+const User = require("../model/user");
 const router = express.Router();
-const fetch = require('node-fetch');
 
-router.post('/create', async (req, res) => {
-    let topics = req.body.topics;
-    topics = topics.split(/[ ]*,+[ ]*/);
-    User.find({email: req.user.email})
-    let todo = new ToDo({
-        link: req.body.link,
-        difficulty: req.body.difficulty,
-        date: req.body.date,
-        topics: topics,
-        user: req.user._id
-    })
-    try {
-        await todo.save();
-        return res.status(200).send(todo);
-    }
-    catch (err) {
-        return res.status(400).send({ error: err.message })
-    }
-})
-router.get('/getTodos', async (req, res) => {
-    User.findOne({ email: req.user.email }, (err, user) => {
-        if (err) {
-            return console.log(err);
-        }
-        if (user) {
-            ToDo.find({ user: user._id }, (err, todos) => {
-                if (err) {
-                    return console.log(err);
-                }
-                if (todos) {
-                    return res.json(todos);
-                }
-            });
-        }
+router.post("/create", async (req, res) => {
+  let topics = req.body.topics;
+  //   topics uppercase
+  topics = topics.toUpperCase();
+  topics = topics.split(/[ ]*,+[ ]*/);
+  let user = await User.find({ email: req.user.email });
+
+  let dsaq = {
+    link: req.body.link,
+    difficulty: req.body.difficulty,
+    date: req.body.date,
+    topics: topics,
+  };
+
+  user.dsa.push(dsaq);
+
+  try {
+    await user.save();
+    return res.status(200).send(dsaq);
+  } catch (err) {
+    return res.status(400).send({ error: err.message });
+  }
+});
+
+// we have only four users in our database, so this is not a problem
+router.get("/getalldata", async (req, res) => {
+  let users = await User.find();
+  let data = [];
+  for (let i = 0; i < users.length; i++) {
+    data.push({
+      name: users[i].name,
+      dsa: users[i].dsa,
     });
-})
-router.delete('/delete/:id', async (req, res) => {
-    let delItem = await ToDo.findByIdAndDelete(req.params['id'])
-    res.send(delItem)
-})
-router.put('/done/:id', async (req, res) => {
-    let updatedItem = await ToDo.findByIdAndUpdate(req.params['id'], { done: true }, { new: true })
-    res.send(updatedItem)
-})
+  }
+  return res.status(200).send(data);
+});
 
-router.get('/getQuote', async (req, res) => {
-    let url = `https://www.stands4.com/services/v2/quotes.php?uid=${process.env.STANDS4API_uid}&tokenid=${process.env.STANDS4API_tokenid}&searchtype=RANDOM&format=json`
-    let quote = await fetch(url)
-    quote = await quote.json()
-    res.send(quote)
-})
+router.delete("/delete/:id", async (req, res) => {
+  let delItem = await ToDo.findByIdAndDelete(req.params["id"]);
+  res.send(delItem);
+});
 
-module.exports = router
+module.exports = router;
