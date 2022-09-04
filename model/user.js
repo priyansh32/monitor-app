@@ -9,13 +9,15 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+
   dsa: [
     {
       platform: String,
       difficulty: String,
       link: String,
       date: Date,
-      topics: [String]
+      topics: [String],
+      _id: false,
     },
   ],
 });

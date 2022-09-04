@@ -18,21 +18,17 @@ router.post("/create", async (req, res) => {
 });
 
 // we have only four users in our database, so this is not a problem
-router.get("/getalldata", async (req, res) => {
-  let users = await User.find();
+router.get("/all", async (req, res) => {
+  let users = await User.find({}, { _id: 0 });
   let data = [];
   for (let i = 0; i < users.length; i++) {
     data.push({
       name: users[i].name,
+      email: users[i].email,
       dsa: users[i].dsa,
     });
   }
   return res.status(200).send(data);
-});
-
-router.delete("/delete/:id", async (req, res) => {
-  let delItem = await ToDo.findByIdAndDelete(req.params["id"]);
-  res.send(delItem);
 });
 
 module.exports = router;
