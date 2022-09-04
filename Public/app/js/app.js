@@ -7,11 +7,14 @@ document.getElementById("date").defaultValue =
   "-" +
   date.getDate().toString().padStart(2, 0);
 
+  let all_data = []
+
 //function to retrieve all tasks from the database
 async function getAlldata() {
   rs = document.getElementById("roadmapers");
   let data = await fetch("data/all");
   data = await data.json();
+  all_data = data;
   data.forEach((element) => {
     let text = `<div class="person flex">
           <div class="person-name">
@@ -23,7 +26,7 @@ async function getAlldata() {
           </div>`;
   });
 }
-let data = await getAlldata();
+
 
 // funtion to post a new task to database
 async function sendData(e) {
