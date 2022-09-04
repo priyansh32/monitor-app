@@ -16,10 +16,10 @@ async function sendData(e) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            topic: String,
-            link: form.children[1].value,
-            date: new Date(),
-            difficulty: form.children[3].value
+            link: form.children[2].value,
+            date: form.children[0].value,
+            difficulty: form.children[1].value,
+            topics: form.children[3].value,
         })
     })
     response = await response.json()
@@ -28,28 +28,10 @@ async function sendData(e) {
         console.log('Validation failed', response.error)
         alert('Data Validation Failed')
     }
+
     //appending New Data to List
     else {
-        let date = response.date
-        date = `${date.slice(8, 10)}-${date.slice(5, 7)}-${date.slice(0, 4)}`
-        let newTodo = document.createElement('div')
-        newTodo.classList.add('todo-task', "flex", "flex-fdc", "flex-jcsb")
-        let html = `<div class="todo-task-desc">${response.desc}</div>
-        <div class="flex flex-jcsb">
-        <div class="todo-task-date flex flex-aic">
-        <img src="/Public/images/calender.svg" alt="calender">
-        <p style="margin-left:0.5rem; padding-bottom:2px;">${date}</p>
-        </div>
-        <div class="todo-task-category" style="background-color:${decideColor(response.category)}">${response.category}</div>
-        </div>
-        <div class="flex todo-task-buttons-cont">
-        <button class="todo-task-buttons flex flex-aic flex-jcc" onclick="markComplete(this)" class="markCompleteButton" data-id="${response._id}">Mark Completed</button>
-        <button class="todo-task-buttons flex flex-aic flex-jcc" onclick="delTodo(this)" class="deleteButton" data-id="${response._id}">Delete</button>
-        </div>`
-        newTodo.innerHTML = html
-        //inserting new task on the page
-        todoContainer.insertBefore(newTodo, todoContainer.firstChild)
-        newTodo.scrollIntoView()
+
     }
     form.reset()
 }
@@ -59,42 +41,25 @@ document.addEventListener("submit", (e) => {
     e.preventDefault();
     sendData(e)
 })
-
 //function to retrieve all tasks from the database
-async function getToDo() {
-    let response = await fetch('/data/getToDos')
-    response = await response.json()
-    response.forEach(element => {
-        let date = element.date
-        date = `${date.slice(8, 10)}-${date.slice(5, 7)}-${date.slice(0, 4)}`
-        let newTodo = document.createElement('div')
-        newTodo.classList.add('todo-task', "flex", "flex-fdc", "flex-jcsb")
-        let html = `<div class="todo-task-desc">${element.desc}</div>
-        <div class="flex flex-jcsb">
-        <div class="todo-task-date flex flex-aic">
-        <img src="/Public/images/calender.svg" alt="calender">
-        <p style="margin-left:0.5rem; padding-bottom:2px;">${date}</p>
+async function getAlldata() {
+    rs = document.getElementById('roadmapers');
+    let data = await fetch('/getalldata');
+    data = await data.json();
+    data.forEach(element => {
+        let text = 
+        `<div class="person flex">
+        <div class="person-name">
+            ${element.name.split(' ')[0]}
         </div>
-        <div class="todo-task-category" style="background-color:${decideColor(element.category)}">${element.category}</div>
+        <div class="person-count">
+            ${element}
         </div>
-        <div class="flex todo-task-buttons-cont">`
-        if (element.done == true) {
-            html += `<button class="todo-task-buttons flex flex-aic flex-jcc" style="background-color: grey; color: black; border: none; opacity: 0.7;" disabled="true" onclick="markComplete(this)" data-id="${element._id}"><img
-            src="/Public/images/check.svg" alt="tick">Completed</button>
-            <button class="todo-task-buttons flex flex-aic flex-jcc" onclick="delTodo(this)" data-id="${element._id}">Delete</button>
-            </div>`
-        }
-        else {
-            html += `<button class="todo-task-buttons flex flex-aic flex-jcc" onclick="markComplete(this)" data-id="${element._id}">Mark Completed</button>
-            <button class="todo-task-buttons flex flex-aic flex-jcc" onclick="delTodo(this)" data-id="${element._id}">Delete</button>
-            </div>`
-        }
+        </div>`
 
-        newTodo.innerHTML = html
-        todoContainer.appendChild(newTodo)
     });
 }
-getToDo()
+getAlldata()
 
 //function to decide the background color to category div
 function decideColor(category) {

@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
       difficulty: String,
       link: String,
       date: Date,
+      topics: [String]
     },
   ],
 });

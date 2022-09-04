@@ -3,27 +3,18 @@ const User = require("../model/user");
 const router = express.Router();
 
 router.post("/create", async (req, res) => {
-  let topics = req.body.topics;
   //   topics uppercase
+  topics = req.body.topics;
   topics = topics.toUpperCase();
   topics = topics.split(/[ ]*,+[ ]*/);
-  let user = await User.find({ email: req.user.email });
-
   let dsaq = {
     link: req.body.link,
     difficulty: req.body.difficulty,
     date: req.body.date,
     topics: topics,
   };
-
-  user.dsa.push(dsaq);
-
-  try {
-    await user.save();
-    return res.status(200).send(dsaq);
-  } catch (err) {
-    return res.status(400).send({ error: err.message });
-  }
+  await User.findOneAndUpdate({ _id: req.user._id }, { $push: { dsa: dsaq } });
+  return res.status(200).send(dsaq);
 });
 
 // we have only four users in our database, so this is not a problem
