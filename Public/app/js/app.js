@@ -88,7 +88,7 @@ async function sendData(e) {
     cell3.innerHTML = `<a href="${response.link}" target="_blank">${response.link}</a>`;
     cell4.innerHTML = response.topics;
     row.classList.add(response.difficulty);
-    // alert("Data Added Successfully");
+    alert("Question Added Successfully");
   }
   form.reset();
 }
