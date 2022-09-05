@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="/Public/css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
-    <title>DSA Track</title>
+    <title>
+        <%= user.name %>
+    </title>
     <style>
         /* style table */
         table {
@@ -43,7 +45,7 @@
     <div class="wrapper">
         <div class="container">
             <h2>
-                Today:
+                Yesterday:
             </h2>
             <div class="flex jcse aic" id="roadmapers">
                 <a href="/jyoti">
@@ -88,25 +90,14 @@
                 </a>
             </div>
         </div>
-        <div class="container add-q">
-            <h2>Add Solved Question</h2>
-            <form class="d-form flex aic" action="/data/create" method="post">
-                <input type="date" name="date" id="date" required>
-                <select name="difficulty" required>
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
-                </select>
-                <input type="text" name="link" placeholder="Enter Question Link" required id="link">
-                <input type="text" name="topics" placeholder="Enter topics separated by comma" required id="topics">
-                <input type="submit" value="Add &rarr;">
-            </form>
-        </div>
+    </div>
+    <div class="container user-info">
+        <!-- username -->
+
     </div>
     <div class="container">
         <!-- table -->
         <!-- sort by topic search bar -->
-        <h2>Solved Problems</h2>
         <table id="table">
             <tbody>
                 <tr>
@@ -146,6 +137,7 @@
         </table>
     </div>
     <script src="/Public/app/js/app.js"></script>
+    <script src="/Public/app/js/analysis.js"></script>
 </body>
 
 </html>

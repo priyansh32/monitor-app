@@ -7,7 +7,10 @@ document.getElementById("date").defaultValue =
   "-" +
   date.getDate().toString().padStart(2, 0);
 
-  let all_data = []
+let all_data = [];
+
+// helper funtions
+// insert row to table
 
 //function to retrieve all tasks from the database
 async function getAlldata() {
@@ -26,7 +29,27 @@ async function getAlldata() {
           </div>`;
   });
 }
+// for each user calculate the number of questions solved yesterday
 
+months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+formatDateString = (date) => {
+  let d = new Date(date);
+  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+};
 
 // funtion to post a new task to database
 async function sendData(e) {
@@ -44,6 +67,7 @@ async function sendData(e) {
       topics: form.children[3].value,
     }),
   });
+
   response = await response.json();
 
   if (response.error) {
@@ -59,12 +83,12 @@ async function sendData(e) {
     let cell2 = row.insertCell(1);
     let cell3 = row.insertCell(2);
     let cell4 = row.insertCell(3);
-    cell1.innerHTML = response.date;
+    cell1.innerHTML = formatDateString(response.date);
     cell2.innerHTML = response.difficulty;
-    cell3.innerHTML = response.topics;
-    cell4.innerHTML = `<a href="${response.link}" target="_blank">Link</a>`;
-    row.style.backgroundColor = decideColor(response.difficulty);
-    alert("Data Added Successfully");
+    cell3.innerHTML = `<a href="${response.link}" target="_blank">${response.link}</a>`;
+    cell4.innerHTML = response.topics;
+    row.classList.add(response.difficulty);
+    // alert("Data Added Successfully");
   }
   form.reset();
 }
@@ -109,7 +133,7 @@ function filterByTopic(topic) {
   let table = document.getElementById("table");
   let rows = table.rows;
   for (let i = 1; i < rows.length; i++) {
-    if (rows[i].cells[2].innerHTML.includes(topic)) {
+    if (rows[i].cells[3].innerHTML.includes(topic)) {
       rows[i].style.display = "";
     } else {
       rows[i].style.display = "none";
@@ -131,17 +155,3 @@ document.addEventListener("submit", (e) => {
   e.preventDefault();
   sendData(e);
 });
-
-//function to decide the background color to difficulty div
-function decideColor(difficulty) {
-  switch (difficulty) {
-    case "Easy":
-      return "#c8e6c9";
-    case "Medium":
-      return "#fff9c4";
-    case "Hard":
-      return "#ffcdd2";
-    default:
-      return "Black";
-  }
-}

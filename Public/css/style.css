@@ -39,8 +39,15 @@ body {
   max-width: 1500px;
 }
 
-.roadmapers {
+#roadmapers {
   margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: #ef9a9a;
+  padding: 1rem;
+}
+
+#roadmapers a{
+  text-decoration: none;
 }
 
 .person {
@@ -62,6 +69,11 @@ body {
 #d-form {
   display: block;
 }
+
+.add-q {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
 form {
   justify-content: center;
 }
@@ -79,4 +91,16 @@ input[type=submit] {
   background: #fff;
   color: black;
   font-weight:bold;
+}
+
+.Easy {
+  background-color: #c8e6c9;
+}
+
+.Medium {
+  background-color: #ffe0b2;
+}
+
+.Hard {
+  background-color: #ef9a9a;
 }
