@@ -19,7 +19,7 @@ router.post("/create", async (req, res) => {
 
 // we have only four users in our database, so this is not a problem
 router.get("/all", async (req, res) => {
-  let users = await User.find({}, { _id: 0 });
+  let users = await User.find({}, { _id: 0, email: 0 });
   let data = [];
   for (let i = 0; i < users.length; i++) {
     data.push({

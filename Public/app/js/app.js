@@ -54,8 +54,13 @@ formatDateString = (date) => {
 // funtion to post a new task to database
 async function sendData(e) {
   const form = e.target;
-  //using Browsers's fetch API to POST data asynchronouslys
-  let response = await fetch(form.action, {
+  let submit_button = document.getElementById("submit");
+  submit_button.disabled = true;
+
+  submit_button.innerHTML = `<div class="spinner-border text-light" role="status"></div>`;
+
+  let response = await fetch("/data/create", {
+    // disable submit button
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -88,9 +93,10 @@ async function sendData(e) {
     cell3.innerHTML = `<a href="${response.link}" target="_blank">${response.link}</a>`;
     cell4.innerHTML = response.topics;
     row.classList.add(response.difficulty);
-    alert("Question Added Successfully");
   }
   form.reset();
+  submit_button.disabled = false;
+  submit_button.innerHTML = `Submit`;
 }
 
 // order table by difficulty Easy, Medium, Hard

@@ -107,7 +107,7 @@
             <h2>Add solved problem</h2>
             <hr>
 
-            <form class="d-form flex aic" action="/data/create" method="post">
+            <form class="d-form flex aic">
                 <input type="date" name="date" id="date" required>
                 <select name="difficulty" required>
                     <option value="Easy">Easy</option>
@@ -116,7 +116,8 @@
                 </select>
                 <input type="text" name="link" placeholder="Enter Question Link" required id="link">
                 <input type="text" name="topics" placeholder="Enter topics separated by comma" required id="topics">
-                <input type="submit" value="Add &rarr;">
+                <button class="btn btn-primary btn-lg fw-bold" id="submit"
+                    onclick="sendData(this.parent)">Submit</button>
             </form>
         </div>
     </div>
