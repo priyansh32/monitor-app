@@ -26,10 +26,10 @@ router.get("/", checkAuthentication, async (req, res) => {
 });
 
 usernames = {
-  ajit: "ajit@gmail.com",
-  harsh: "sahil.gmail.com",
+  ajit: "ajitpanigrahiakp@gmail.com",
+  harsh: "harshghandwani@gmail.com",
   priyansh: "patidarpriyansh936@gmail.com",
-  jyoti: "jyotisuman@gmial.com",
+  jyoti: "jyotisumanswexpprac@gmail.com",
 };
 
 router.get("/:user", checkAuthentication, async (req, res) => {
