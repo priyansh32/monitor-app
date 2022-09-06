@@ -73,27 +73,26 @@ async function sendData(e) {
     }),
   });
 
-  response = await response.json();
-
-  if (response.error) {
-    console.log("Validation failed", response.error);
-    alert("Data Validation Failed");
+  try {
+    response = await response.json();
+  } catch (err) {
+    // redirect to login page
+    return (window.location.href = "/login");
   }
 
   //append data to table to top of the table
-  else {
-    let table = document.getElementById("table");
-    let row = table.insertRow(1);
-    let cell1 = row.insertCell(0);
-    let cell2 = row.insertCell(1);
-    let cell3 = row.insertCell(2);
-    let cell4 = row.insertCell(3);
-    cell1.innerHTML = formatDateString(response.date);
-    cell2.innerHTML = response.difficulty;
-    cell3.innerHTML = `<a href="${response.link}" target="_blank">${response.link}</a>`;
-    cell4.innerHTML = response.topics;
-    row.classList.add(response.difficulty);
-  }
+
+  let table = document.getElementById("table");
+  let row = table.insertRow(1);
+  let cell1 = row.insertCell(0);
+  let cell2 = row.insertCell(1);
+  let cell3 = row.insertCell(2);
+  let cell4 = row.insertCell(3);
+  cell1.innerHTML = formatDateString(response.date);
+  cell2.innerHTML = response.difficulty;
+  cell3.innerHTML = `<a href="${response.link}" target="_blank">${response.link}</a>`;
+  cell4.innerHTML = response.topics;
+  row.classList.add(response.difficulty);
   form.reset();
   submit_button.disabled = false;
   submit_button.innerHTML = `Submit`;

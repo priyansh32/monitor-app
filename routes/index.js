@@ -11,6 +11,9 @@ function checkAuthentication(req, res, next) {
 }
 
 router.get("/login", (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.redirect("/");
+  }
   return res.render("login");
 });
 
