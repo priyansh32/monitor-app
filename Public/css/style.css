@@ -40,10 +40,9 @@ body {
 }
 
 #roadmapers {
-  margin-top: 1rem;
   margin-bottom: 1rem;
-  background-color: #ef9a9a;
-  padding: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 #roadmapers a{
@@ -59,7 +58,6 @@ body {
   font-weight: bold;
   color: black;
   background: white;
-  margin: 1rem;
   padding: 1rem;
 }
 .person-count{
@@ -75,7 +73,7 @@ body {
   margin-bottom: 2rem;
 }
 form {
-  justify-content: center;
+  flex-wrap: wrap;
 }
 
 input, select {

@@ -22,6 +22,7 @@ router.get("/", checkAuthentication, async (req, res) => {
   return res.render("home", {
     username: user.name,
     dsa: user.dsa,
+    total: user.dsa.length,
   });
 });
 

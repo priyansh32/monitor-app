@@ -41,10 +41,25 @@
 
 <body>
     <div class="wrapper">
+        <div class="loggedin"
+            style="display: flex; justify-content:space-between; align-items: center; background-color: rgb(39, 39, 39); padding: 0.5rem;">
+            <!-- username -->
+            <div class="username"
+                style="margin: 0 1rem; font-size:1.5rem; font-weight:bold;  padding: 0.5rem 1rem; border-radius: 0.5rem;">
+                <%= user.name %>
+            </div>
+            <!-- logout -->
+            <div class="logout"
+                style="margin: 0 1rem; padding: 0.5rem 1rem; background: rgb(255, 74, 74); border-radius: 0.5rem;">
+                <a href="/auth/logout"
+                    style="text-decoration: none; font-weight:bold; color: rgb(239, 231, 231);">Logout</a>
+            </div>
+        </div>
         <div class="container">
             <h2>
                 Today:
             </h2>
+            <hr>
             <div class="flex jcse aic" id="roadmapers">
                 <a href="/jyoti">
                     <div class="person flex">
@@ -89,7 +104,9 @@
             </div>
         </div>
         <div class="container add-q">
-            <h2>Add Solved Question</h2>
+            <h2>Add solved problem</h2>
+            <hr>
+
             <form class="d-form flex aic" action="/data/create" method="post">
                 <input type="date" name="date" id="date" required>
                 <select name="difficulty" required>
@@ -103,10 +120,11 @@
             </form>
         </div>
     </div>
-    <div class="container">
+    <div class="container" style="overflow-x: auto;">
         <!-- table -->
         <!-- sort by topic search bar -->
-        <h2>Solved Problems</h2>
+        <h2 style="margin-bottom: 1rem;">Your solved problems</h2>
+        <hr>
         <table id="table">
             <tbody>
                 <tr>
