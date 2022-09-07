@@ -83,6 +83,17 @@ input, select, #submit {
   padding: 0.25rem;
 }
 
+.filters input, .filters select{
+  margin: 1rem;
+  font-size: 1rem;
+  height: 2rem;
+  padding: 0.25rem;
+}
+
+.filters .btn {
+  margin: 0.5rem;
+}
+
 #submit {
   width: 7rem;
 }

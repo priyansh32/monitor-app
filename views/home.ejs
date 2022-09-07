@@ -126,15 +126,40 @@
         <!-- sort by topic search bar -->
         <h2 style="margin-bottom: 1rem;">Your solved problems</h2>
         <hr>
+        <!-- sorting and filter -->
+        <div class="flex filters" style="
+        margin-bottom: 1rem;
+        justify-content: space-between;
+        ">
+            <div class="diffitculty-filter">
+                <select name="difficulty" onchange="filterTablebyDifficulty(this.value)" id="difficulty">
+                    <option value="All">All</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
+            <div class="flex aic">
+                <input type="text" placeholder="Enter topic name" id="topic-filter">
+                <button class="btn btn-primary btn-sm fw-bold" id="filter" onclick="filterByTopic()">Filter</button>
+                <!-- reset -->
+                <button class="btn btn-danger btn-sm fw-bold" id="reset" onclick="disableAllFilters()">Reset</button>
+            </div>
+        </div>
         <table id="table">
             <tbody>
                 <tr>
                     <th>Date</th>
-                    <th>Difficulty</th>
+                    <th>
+                        Difficulty
+                        <span style="cursor: pointer;" onclick="orderTablebyDifficulty(this)">
+                            ˄
+                        </span>
+                    </th>
                     <th>Link</th>
                     <th>Topics</th>
                 </tr>
-                <%for(let i=0; i<dsa.length; i++){ %>
+                <%for(let i=dsa.length - 1 ; i>= 0; i--){ %>
                     <tr class="<%= dsa[i].difficulty%>">
                         <td>
                             <!-- formatDateString -->

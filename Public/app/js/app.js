@@ -98,8 +98,21 @@ async function sendData(e) {
   submit_button.innerHTML = `Submit`;
 }
 
+order = {
+  E: 0,
+  M: 1,
+  H: 2,
+};
 // order table by difficulty Easy, Medium, Hard
-function orderTablebyDifficulty() {
+function orderTablebyDifficulty(span) {
+  if (span.innerHTML == "˄") {
+    //˅
+    span.innerHTML = "˅";
+    n = 1;
+  } else {
+    span.innerHTML = "˄";
+    n = -1;
+  }
   let table = document.getElementById("table");
   let rows = table.rows;
   let arr = [];
@@ -107,13 +120,9 @@ function orderTablebyDifficulty() {
     arr.push(rows[i]);
   }
   arr.sort((a, b) => {
-    if (a.cells[1].innerHTML > b.cells[1].innerHTML) {
-      return 1;
-    } else if (a.cells[1].innerHTML < b.cells[1].innerHTML) {
-      return -1;
-    } else {
-      return 0;
-    }
+    a = a.cells[1].innerHTML.trim()[0];
+    b = b.cells[1].innerHTML.trim()[0];
+    return (order[a] - order[b]) * n;
   });
   arr.forEach((element) => {
     table.appendChild(element);
@@ -122,10 +131,16 @@ function orderTablebyDifficulty() {
 
 //function to filter table by difficulty
 function filterTablebyDifficulty(difficulty) {
+  if (difficulty == "All") {
+    disableAllFilters();
+    return;
+  }
+
   let table = document.getElementById("table");
   let rows = table.rows;
+
   for (let i = 1; i < rows.length; i++) {
-    if (rows[i].cells[1].innerHTML == difficulty) {
+    if (rows[i].cells[1].innerHTML.trim() == difficulty) {
       rows[i].style.display = "";
     } else {
       rows[i].style.display = "none";
@@ -134,7 +149,8 @@ function filterTablebyDifficulty(difficulty) {
 }
 
 // filter table by topic
-function filterByTopic(topic) {
+function filterByTopic() {
+  topic = document.getElementById("topic-filter").value.toUpperCase();
   let table = document.getElementById("table");
   let rows = table.rows;
   for (let i = 1; i < rows.length; i++) {
@@ -153,6 +169,8 @@ function disableAllFilters() {
   for (let i = 1; i < rows.length; i++) {
     rows[i].style.display = "";
   }
+  document.getElementById("topic-filter").value = "";
+  document.getElementById("difficulty").value = "All";
 }
 
 //event listener on submit form
