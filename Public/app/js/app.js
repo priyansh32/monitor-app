@@ -9,28 +9,6 @@ document.getElementById("date").defaultValue =
 
 let all_data = [];
 
-// helper funtions
-// insert row to table
-
-//function to retrieve all tasks from the database
-async function getAlldata() {
-  rs = document.getElementById("roadmapers");
-  let data = await fetch("data/all");
-  data = await data.json();
-  all_data = data;
-  data.forEach((element) => {
-    let text = `<div class="person flex">
-          <div class="person-name">
-              ${element.name.split(" ")[0]}
-          </div>
-          <div class="person-count">
-              ${element}
-          </div>
-          </div>`;
-  });
-}
-// for each user calculate the number of questions solved yesterday
-
 months = [
   "Jan",
   "Feb",

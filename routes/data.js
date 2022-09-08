@@ -24,8 +24,9 @@ router.get("/all", async (req, res) => {
   for (let i = 0; i < users.length; i++) {
     data.push({
       name: users[i].name,
-      email: users[i].email,
-      dsa: users[i].dsa,
+      username: users[i].username,
+      avatar: users[i].avatar,
+      total: users[i].dsa.length,
     });
   }
   return res.status(200).send(data);

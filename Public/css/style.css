@@ -45,23 +45,27 @@ body {
   justify-content: space-around;
 }
 
-#roadmapers a{
+#roadmapers a {
   text-decoration: none;
+  color: aliceblue;
+  margin: 0.5rem;
 }
 
 .person {
   justify-content: space-between;
   align-items: center;
   width: 256px;
-  height: 64px;
+  height: 120px;
   font-size: 1.5rem;
   font-weight: bold;
-  color: black;
-  background: white;
+  border: 1px solid white;
   padding: 1rem;
 }
+
 .person-count{
-  font-size: 2rem;
+  width: 100px;
+  height: 100px;
+  font-size: 2.5rem;
 }
 
 #d-form {

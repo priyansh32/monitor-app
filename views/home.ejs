@@ -62,46 +62,6 @@
         </h2>
         <hr>
         <div class="flex jcse aic" id="roadmapers">
-            <a href="/jyoti">
-                <div class="person flex">
-                    <div class="person-name">
-                        Jyotisuman
-                    </div>
-                    <div class="person-count">
-                        10
-                    </div>
-                </div>
-            </a>
-            <a href="/priyansh">
-                <div class="person flex">
-                    <div class="person-name">
-                        Priyansh
-                    </div>
-                    <div class="person-count">
-                        10
-                    </div>
-                </div>
-            </a>
-            <a href="/harsh">
-                <div class="person flex">
-                    <div class="person-name">
-                        Harsh
-                    </div>
-                    <div class="person-count">
-                        10
-                    </div>
-                </div>
-            </a>
-            <a href="/ajit">
-                <div class="person flex">
-                    <div class="person-name">
-                        Ajit
-                    </div>
-                    <div class="person-count">
-                        10
-                    </div>
-                </div>
-            </a>
         </div>
     </div>
     <div class="container add-q">
@@ -139,7 +99,7 @@
                 </select>
             </div>
             <div class="flex aic">
-                <input type="text" placeholder="Enter topic name" id="topic-filter">
+                <input type="text" placeholder="Enter topic name" onchange="filterByTopic()" id="topic-filter">
                 <button class="btn btn-primary btn-sm fw-bold" id="filter" onclick="filterByTopic()">Filter</button>
                 <!-- reset -->
                 <button class="btn btn-danger btn-sm fw-bold" id="reset" onclick="disableAllFilters()">Reset</button>
@@ -188,6 +148,31 @@
         </table>
     </div>
     <script src="/Public/app/js/app.js"></script>
+    <script>
+        //function to retrieve all tasks from the database
+        let roadmapers = document.getElementById("roadmapers");
+
+        async function display_users() {
+            let data = await fetch("data/all");
+            data = await data.json();
+            all_data = data;
+            data.forEach((e) => {
+                let text = `
+                <a href="/${e.username}" title="${e.name}" >
+                    <div class="person flex">
+                        <img src="${e.avatar}" width="100" height="100">
+                        <div class="person-count flex aic jcc">
+                            ${e.total}
+                        </div>
+                    </div>
+                </a>
+                `;
+                roadmapers.innerHTML += text;
+            });
+        }
+        display_users();
+
+    </script>
 </body>
 
 </html>
