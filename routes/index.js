@@ -6,7 +6,7 @@ function checkAuthentication(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.redirect("/login");
+    return res.redirect("/login");
   }
 }
 
@@ -20,34 +20,17 @@ router.get("/login", (req, res) => {
 router.use("/auth", require("./auth"));
 
 router.get("/", checkAuthentication, async (req, res) => {
-  // fetch user data from
-  let user = await User.findOne({ email: req.user.email }, { _id: 0, dsa: 1 });
-  return res.render("home", {
-    username: user.name,
-    dsa: user.dsa,
-    total: user.dsa.length,
-  });
+  return res.render("home");
 });
 
-usernames = {
-  ajit: "ajitpanigrahiakp@gmail.com",
-  harsh: "harshghandwani@gmail.com",
-  priyansh: "patidarpriyansh936@gmail.com",
-  jyoti: "jyotisumanswexpprac@gmail.com",
-};
-
-router.get("/:user", checkAuthentication, async (req, res) => {
-  let email = usernames[req.params.user];
-  if (!email) {
-    return res.redirect("/");
-  } else {
-    let user = await User.findOne({ email }, { _id: 0, email: 0 });
-    if (!user) return res.redirect("/");
-    return res.render("user", {
-      username: user.name,
-      dsa: user.dsa,
-    });
-  }
+router.get("/:username", checkAuthentication, async (req, res) => {
+  username = req.params.username;
+  let req_user = await User.findOne({ username }, { _id: 0, email: 0 });
+  if (!req_user) return res.redirect("/");
+  return res.render("user", {
+    username: req_user.name,
+    dsa: req_user.dsa,
+  });
 });
 
 router.use("/data", checkAuthentication, require("./data"));

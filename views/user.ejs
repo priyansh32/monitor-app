@@ -42,61 +42,23 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="container">
-            <h2>
-                Today:
-            </h2>
-            <hr>
-            <div class="flex jcse aic" id="roadmapers">
-                <a href="/jyoti">
-                    <div class="person flex">
-                        <div class="person-name">
-                            Jyotisuman
-                        </div>
-                        <div class="person-count">
-                            10
-                        </div>
-                    </div>
-                </a>
-                <a href="/priyansh">
-                    <div class="person flex">
-                        <div class="person-name">
-                            Priyansh
-                        </div>
-                        <div class="person-count">
-                            10
-                        </div>
-                    </div>
-                </a>
-                <a href="/harsh">
-                    <div class="person flex">
-                        <div class="person-name">
-                            Harsh
-                        </div>
-                        <div class="person-count">
-                            10
-                        </div>
-                    </div>
-                </a>
-                <a href="/ajit">
-                    <div class="person flex">
-                        <div class="person-name">
-                            Ajit
-                        </div>
-                        <div class="person-count">
-                            10
-                        </div>
-                    </div>
-                </a>
+    <div class="wrapper" style=" background-color: rgb(39, 39, 39);">
+        <div class="container loggedin" style="display: flex; justify-content:space-between; align-items: center;
+            padding: 0.5rem;">
+            <!-- username -->
+            <div class="username"
+                style="margin: 0 1rem; font-size:1.5rem; font-weight:bold;  padding: 0.5rem 1rem; border-radius: 0.5rem;">
+                <%= user.name %>
+            </div>
+            <!-- logout -->
+            <div class="logout"
+                style="margin: 0 1rem; padding: 0.5rem 1rem; background: rgb(255, 74, 74); border-radius: 0.5rem;">
+                <a href="/auth/logout"
+                    style="text-decoration: none; font-weight:bold; color: rgb(239, 231, 231);">Logout</a>
             </div>
         </div>
     </div>
-    <div class="container user-info">
-        <!-- username -->
-
-    </div>
-    <div class="container" style="overflow-x: auto;">
+    <div class="container" style="overflow-x: auto; margin-top: 1rem;">
         <!-- table -->
         <!-- sort by topic search bar -->
         <h2 style="margin-bottom: 1rem;">
@@ -108,7 +70,7 @@
         margin-bottom: 1rem;
         justify-content: space-between;
         ">
-            <div class="diffitculty-filter">
+            <div class="difficulty-filter">
                 <select name="difficulty" onchange="filterTablebyDifficulty(this.value)" id="difficulty">
                     <option value="All">All</option>
                     <option value="Easy">Easy</option>
@@ -136,33 +98,29 @@
                     <th>Link</th>
                     <th>Topics</th>
                 </tr>
-                <%for(let i=0; i<dsa.length; i++){ %>
-                    <tr class="<%= dsa[i].difficulty%>">
-                        <td>
-                            <!-- formatDateString -->
-                            <!-- months list -->
-                            <% const months=["Jan", "Feb" , "Mar" , "Apr" , "May" , "Jun" , "Jul" , "Aug" , "Sep"
-                                , "Oct" , "Nov" , "Dec" ]; %>
+                <% const months=["Jan", "Feb" , "Mar" , "Apr" , "May" , "Jun" , "Jul" , "Aug" , "Sep" , "Oct" , "Nov"
+                    , "Dec" ]; %>
+                    <%for(let i=0; i<dsa.length; i++){ %>
+                        <tr class="<%= dsa[i].difficulty%>">
+                            <td>
                                 <% let date=new Date(dsa[i].date); %>
                                     <% let day=date.getDate(); %>
                                         <% let month=months[date.getMonth()]; %>
                                             <% let year=date.getFullYear(); %>
                                                 <% let dateString=day + " " + month + " " + year; %>
-                                                    <!-- formatDateString -->
                                                     <%= dateString %>
-
-                        </td>
-                        <td>
-                            <%= dsa[i].difficulty %>
-                        </td>
-                        <td><a href="<%= dsa[i].link %>" target="_blank">
-                                <%= dsa[i].link %>
-                            </a></td>
-                        <td>
-                            <%= dsa[i].topics %>
-                        </td>
-                    </tr>
-                    <% } %>
+                            </td>
+                            <td>
+                                <%= dsa[i].difficulty %>
+                            </td>
+                            <td><a href="<%= dsa[i].link %>" target="_blank" rel="noopener noreferrer">
+                                    <%= dsa[i].link %>
+                                </a></td>
+                            <td>
+                                <%= dsa[i].topics %>
+                            </td>
+                        </tr>
+                        <% } %>
             </tbody>
         </table>
     </div>

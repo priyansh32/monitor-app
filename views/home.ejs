@@ -40,9 +40,9 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="loggedin"
-            style="display: flex; justify-content:space-between; align-items: center; background-color: rgb(39, 39, 39); padding: 0.5rem;">
+    <div class="wrapper" style=" background-color: rgb(39, 39, 39);">
+        <div class="container loggedin" style="display: flex; justify-content:space-between; align-items: center;
+            padding: 0.5rem;">
             <!-- username -->
             <div class="username"
                 style="margin: 0 1rem; font-size:1.5rem; font-weight:bold;  padding: 0.5rem 1rem; border-radius: 0.5rem;">
@@ -55,71 +55,70 @@
                     style="text-decoration: none; font-weight:bold; color: rgb(239, 231, 231);">Logout</a>
             </div>
         </div>
-        <div class="container">
-            <h2>
-                Today:
-            </h2>
-            <hr>
-            <div class="flex jcse aic" id="roadmapers">
-                <a href="/jyoti">
-                    <div class="person flex">
-                        <div class="person-name">
-                            Jyotisuman
-                        </div>
-                        <div class="person-count">
-                            10
-                        </div>
+    </div>
+    <div class="container">
+        <h2>
+            Today:
+        </h2>
+        <hr>
+        <div class="flex jcse aic" id="roadmapers">
+            <a href="/jyoti">
+                <div class="person flex">
+                    <div class="person-name">
+                        Jyotisuman
                     </div>
-                </a>
-                <a href="/priyansh">
-                    <div class="person flex">
-                        <div class="person-name">
-                            Priyansh
-                        </div>
-                        <div class="person-count">
-                            10
-                        </div>
+                    <div class="person-count">
+                        10
                     </div>
-                </a>
-                <a href="/harsh">
-                    <div class="person flex">
-                        <div class="person-name">
-                            Harsh
-                        </div>
-                        <div class="person-count">
-                            10
-                        </div>
+                </div>
+            </a>
+            <a href="/priyansh">
+                <div class="person flex">
+                    <div class="person-name">
+                        Priyansh
                     </div>
-                </a>
-                <a href="/ajit">
-                    <div class="person flex">
-                        <div class="person-name">
-                            Ajit
-                        </div>
-                        <div class="person-count">
-                            10
-                        </div>
+                    <div class="person-count">
+                        10
                     </div>
-                </a>
-            </div>
+                </div>
+            </a>
+            <a href="/harsh">
+                <div class="person flex">
+                    <div class="person-name">
+                        Harsh
+                    </div>
+                    <div class="person-count">
+                        10
+                    </div>
+                </div>
+            </a>
+            <a href="/ajit">
+                <div class="person flex">
+                    <div class="person-name">
+                        Ajit
+                    </div>
+                    <div class="person-count">
+                        10
+                    </div>
+                </div>
+            </a>
         </div>
-        <div class="container add-q">
-            <h2>Add solved problem</h2>
-            <hr>
+    </div>
+    <div class="container add-q">
+        <h2>Add solved problem</h2>
+        <hr>
 
-            <form class="d-form flex aic">
-                <input type="date" name="date" id="date" required>
-                <select name="difficulty" required>
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
-                </select>
-                <input type="text" name="link" placeholder="Enter Question Link" required id="link">
-                <input type="text" name="topics" placeholder="Enter topics separated by comma" required id="topics">
-                <button class="btn btn-primary btn-lg fw-bold" id="submit"
-                    onclick="sendData(this.parent)">Submit</button>
-            </form>
-        </div>
+        <form class="d-form flex aic">
+            <input type="date" name="date" id="date" required>
+            <select name="difficulty" required>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+            <input type="text" name="link" placeholder="Enter Question Link" required id="link">
+            <input type="text" name="topics" placeholder="Enter topics separated by comma" required id="topics">
+            <button class="btn btn-primary btn-lg fw-bold" id="submit" onclick="sendData(this.parent)">Submit</button>
+        </form>
     </div>
     <div class="container" style="overflow-x: auto;">
         <!-- table -->
@@ -131,7 +130,7 @@
         margin-bottom: 1rem;
         justify-content: space-between;
         ">
-            <div class="diffitculty-filter">
+            <div class="difficulty-filter">
                 <select name="difficulty" onchange="filterTablebyDifficulty(this.value)" id="difficulty">
                     <option value="All">All</option>
                     <option value="Easy">Easy</option>
@@ -159,33 +158,32 @@
                     <th>Link</th>
                     <th>Topics</th>
                 </tr>
-                <%for(let i=dsa.length - 1 ; i>= 0; i--){ %>
-                    <tr class="<%= dsa[i].difficulty%>">
-                        <td>
-                            <!-- formatDateString -->
-                            <!-- months list -->
-                            <% const months=["Jan", "Feb" , "Mar" , "Apr" , "May" , "Jun" , "Jul" , "Aug" , "Sep"
-                                , "Oct" , "Nov" , "Dec" ]; %>
-                                <% let date=new Date(dsa[i].date); %>
-                                    <% let day=date.getDate(); %>
-                                        <% let month=months[date.getMonth()]; %>
-                                            <% let year=date.getFullYear(); %>
-                                                <% let dateString=day + " " + month + " " + year; %>
-                                                    <!-- formatDateString -->
-                                                    <%= dateString %>
-
-                        </td>
-                        <td>
-                            <%= dsa[i].difficulty %>
-                        </td>
-                        <td><a href="<%= dsa[i].link %>" target="_blank">
-                                <%= dsa[i].link %>
-                            </a></td>
-                        <td>
-                            <%= dsa[i].topics %>
-                        </td>
-                    </tr>
-                    <% } %>
+                <% dsa=user.dsa %>
+                    <% const months=["Jan", "Feb" , "Mar" , "Apr" , "May" , "Jun" , "Jul" , "Aug" , "Sep" , "Oct"
+                        , "Nov" , "Dec" ]; %>
+                        <%for(let i=dsa.length - 1 ; i>= 0; i--){ %>
+                            <tr class="<%= dsa[i].difficulty%>">
+                                <td>
+                                    <!-- formatDateString -->
+                                    <% let date=new Date(dsa[i].date); %>
+                                        <% let day=date.getDate(); %>
+                                            <% let month=months[date.getMonth()]; %>
+                                                <% let year=date.getFullYear(); %>
+                                                    <% let dateString=day + " " + month + " " + year; %>
+                                                        <!-- formatDateString -->
+                                                        <%= dateString %>
+                                </td>
+                                <td>
+                                    <%= dsa[i].difficulty %>
+                                </td>
+                                <td><a href="<%= dsa[i].link %>" target="_blank" rel="noopener noreferrer">
+                                        <%= dsa[i].link %>
+                                    </a></td>
+                                <td>
+                                    <%= dsa[i].topics %>
+                                </td>
+                            </tr>
+                            <% } %>
             </tbody>
         </table>
     </div>
